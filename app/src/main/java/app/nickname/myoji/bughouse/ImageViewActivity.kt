@@ -10,8 +10,8 @@ import kotlinx.android.synthetic.main.activity_image_view.*
 
 class ImageViewActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_image_view)
 
         imageView.load("https://life-is-tech.com/materials/images/summer2019_desktop_3.jpg")
@@ -19,7 +19,7 @@ class ImageViewActivity : AppCompatActivity() {
         getImageButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.type = "image/*"
-            startActivityForResult(intent, 100)
+            startActivityForResult(intent, 1)
         }
 
     }
@@ -27,7 +27,7 @@ class ImageViewActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 1 && resultCode == Activity.RESULT_CANCELED) {
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
             imageView.load(data?.data)
         }
     }
